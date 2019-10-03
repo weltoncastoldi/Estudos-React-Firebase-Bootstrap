@@ -3,7 +3,9 @@ import './login.css';
 import {Link} from 'react-router-dom';
 
 import firebase from '../../config/firebase';
-import 'firebase/auth'
+import 'firebase/auth';
+
+import {useSelector, useDispatch} from 'react-redux';
 
 
 function Login() {
@@ -11,10 +13,12 @@ function Login() {
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
     const [msgTipo, setMsgTipo] = useState();
+    const dispatch = useDispatch();
 
     function logar(){        
         firebase.auth().signInWithEmailAndPassword(email,senha).then(resultado => {
             setMsgTipo('sucesso')
+            dispatch({type: 'LOG_IN', usuarioEmail: email});
         }).catch(erro =>{
             setMsgTipo('erro')
         });
