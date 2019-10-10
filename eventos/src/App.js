@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import Login from './view/login/';
 import NovoUsuario from './view/usuario-novo/';
 import Home from './view/home/';
+
 import { isModuleDeclaration } from '@babel/types';
 
 function App() {
