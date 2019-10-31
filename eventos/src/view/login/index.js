@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './login.css';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 
 import firebase from '../../config/firebase';
 import 'firebase/auth';
@@ -18,14 +18,18 @@ function Login() {
     function logar(){        
         firebase.auth().signInWithEmailAndPassword(email,senha).then(resultado => {
             setMsgTipo('sucesso')
-            dispatch({type: 'LOG_IN', usuarioEmail: email});
+            setTimeout(() => {
+                dispatch({type: 'LOG_IN', usuarioEmail: email});
+            }, 2000);
+           
         }).catch(erro =>{
             setMsgTipo('erro')
-        });
+        });      
     }
-
+    
     return (
         <div className="login-content d-flex align-items-center">
+            { useSelector(state => state.usuarioLogado) > 0 ? <Redirect to='/' /> : null };
             <form className="form-signin mx-auto">
                 <div className="text-center mb-4 ">
                     <img className="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72" />
